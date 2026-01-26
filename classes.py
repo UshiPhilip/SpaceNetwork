@@ -8,7 +8,7 @@ class Satellite(SpaceEntity):
         print(f"[{self.name}] Received: {packet}.")
 
 def transmission_attempt(packet):
-    spaceship = SpaceNetwork(level=2)
+    spaceship = SpaceNetwork(level=3)
     while True:
         try:
             spaceship.send(packet)
@@ -21,3 +21,9 @@ def transmission_attempt(packet):
             time.sleep(1)
         except DataCorruptedError:
             print("Data corrupted, retrying...")
+            raise "BrokenConnectionError"
+        except LinkTerminatedError:
+            print("Link lost")
+        except OutOfRangeError:
+            print("Target out of range.")
+            raise "BrokenConnectionError"

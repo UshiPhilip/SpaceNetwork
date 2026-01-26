@@ -7,4 +7,7 @@ sat2 = Satellite("Sat2", 200)
 
 message = Packet("Hi there...", sat1, sat2)
 
-transmission_attempt(message)
+try:
+    transmission_attempt(message)
+except:
+    print("Transmission failed")
