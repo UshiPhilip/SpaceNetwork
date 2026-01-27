@@ -16,7 +16,7 @@ space_entity_list = [earth, sat1, sat2, sat3, sat4, sat5, sat6]
 
 
 
-p = Packet("Hello from sat1", sat2, sat1)
+p = Packet("Hello from sat4", sat4, sat1)
 wrapping_packet(p, [earth, sat1, sat2, sat3, sat4, sat5, sat6])
 
 # try:
