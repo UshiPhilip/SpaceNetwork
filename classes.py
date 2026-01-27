@@ -31,7 +31,7 @@ class NotSatellite(SpaceEntity):
 
 
 def transmission_attempt(packet):
-    spaceship = SpaceNetwork(level=5)
+    spaceship = SpaceNetwork(level=6)
     while True:
         try:
             spaceship.send(packet)
