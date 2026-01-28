@@ -35,9 +35,9 @@ class NotSatellite(SpaceEntity):
 
 
 class EncryptedPacket(Packet):
-    def __init__(self, data, sender, receiver, key):
+    def __init__(self, data, sender, receiver):
         super().__init__(data, sender, receiver)
-        self.key = key
+        self.key = receiver.encrypt_key
         self.data = data
         EncryptedPacket.encryption(self)
 
@@ -92,13 +92,13 @@ def sanding_the_message(packet):
         print("Transmission failed")
 
 
-def wrapping_packet(message, sender, receiver, space_entity_list, key):
+def wrapping_packet(message, sender, receiver, space_entity_list):
     if space_entity_list.index(sender) < space_entity_list.index(receiver):
-        packet = EncryptedPacket(message, space_entity_list[space_entity_list.index(receiver)-1], receiver, key)
+        packet = EncryptedPacket(message, space_entity_list[space_entity_list.index(receiver)-1], receiver)
         for i in range(space_entity_list.index(receiver)-2, space_entity_list.index(sender)-1, -1):
             packet = RelayPacket(packet, space_entity_list[i], space_entity_list[i+1])
     else:
-        packet = EncryptedPacket(message, space_entity_list[space_entity_list.index(receiver)+1], receiver, key)
+        packet = EncryptedPacket(message, space_entity_list[space_entity_list.index(receiver)+1], receiver)
         for i in range(space_entity_list.index(receiver)+1, space_entity_list.index(sender)):
             packet = RelayPacket(packet, space_entity_list[i+1], space_entity_list[i])
     sanding_the_message(packet)

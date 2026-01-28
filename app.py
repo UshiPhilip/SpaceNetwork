@@ -16,4 +16,4 @@ space_entity_list = [earth, sat1, sat2, sat3, sat4, sat5, sat6]
 
 
 
-wrapping_packet("Hello from sat1", sat1, sat4, space_entity_list, sat4.encrypt_key)
+wrapping_packet("Hello from sat1", sat1, sat4, space_entity_list)
