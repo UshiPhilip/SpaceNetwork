@@ -9,7 +9,7 @@ class Satellite(SpaceEntity):
         if isinstance(packet, RelayPacket):
             # Unwrapping the message
             inner_packet = packet.data
-            print(f"[{self.name}] - Unwrapping and forwarding to {inner_packet.receiver}.")
+            print(f"[{self.name}] - Unwrapping and forwarding to {inner_packet.receiver}. \nThe encrypted message is {inner_packet.data}.")
             # Sending to the receiver
             transmission_attempt(inner_packet)
         else:
@@ -61,7 +61,7 @@ def decryption(data, key):
 
 
 def transmission_attempt(packet):
-    spaceship = SpaceNetwork(level=6)
+    spaceship = SpaceNetwork(level=1)
     while True:
         try:
             spaceship.send(packet)
