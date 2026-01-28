@@ -13,7 +13,8 @@ class Satellite(SpaceEntity):
             # Sending to the receiver
             transmission_attempt(inner_packet)
         else:
-            print(f"[{self.name}]: Final destination reached: {packet.data}")
+            message = decryption(packet.data, b"P")
+            print(f"[{self.name}]: Final destination reached: {message}")
 
 
 class RelayPacket(Packet):
@@ -46,6 +47,17 @@ class EncryptedPacket(Packet):
             self.key = self.key[:len(self.data)]
 
         self.data = bytes([t ^ k for t, k in zip(self.data, self.key)]).decode()
+
+
+def decryption(data, key):
+    if isinstance(data, str):
+        data = data.encode()
+
+    if len(key) < len(data):
+        key = key * (len(data) // len(key) + 1)
+        key = key[:len(data)]
+    return bytes([t ^ k for t, k in zip(data, key)]).decode()
+
 
 
 def transmission_attempt(packet):
